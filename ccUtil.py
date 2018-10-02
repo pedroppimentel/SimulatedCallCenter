@@ -170,7 +170,16 @@ class callCenter():
             checkStatus(A, B, ringQueue)           
         else:
             print("You don't have any ongoing call")
-            input("\nPress Enter to continue...")   
+            input("\nPress Enter to continue...")
+
+    def freeQueue(queue):
+        if not isEmptyQueue(queue):
+            print("Call", queue[0], "missed")
+            input("\nPress Enter to continue...")
+            queue.pop(0)
+        else:
+            print("Empty Queue")
+            input("\nPress Enter to continue...")
 
 class operator():
     def __init__(self, name, status = "available"):
