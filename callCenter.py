@@ -93,6 +93,7 @@ while True:
     print("   [6] - REJECT B")
     print("   [7] - HANGUP A")
     print("   [8] - HANGUP B")
+    print("   [9] - FREE QUEUE")
     answer = input("\nChoose an option: ")
 
     if answer == "1":
@@ -118,4 +119,7 @@ while True:
 
     elif answer == "8":
         ccUtil.callCenter.hangupB(A, B,ongoingCall, ringQueue)
+
+    elif answer == "9":
+        ccUtil.callCenter.freeQueue(queue)
 
