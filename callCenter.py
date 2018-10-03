@@ -67,10 +67,10 @@ queue = []
 ringQueue = [0, 0]
 ongoingCall = [0, 0]
    
-ccUtil.callCenter.__init__();
+ccUtil.callCenter.__init__()
 
-A = ccUtil.operator("A");
-B = ccUtil.operator("B");
+A = ccUtil.operator("A")
+B = ccUtil.operator("B")
 
 # infinity looping
 while True:
@@ -109,17 +109,16 @@ while True:
          ccUtil.callCenter.answerB(B, ringQueue, queue, ongoingCall)
 
     elif answer == "5":
-        ccUtil.callCenter.rejectA(A, B, ringQueue)
+        ccUtil.callCenter.rejectA(A, B, ringQueue, queue)
         
     elif answer == "6":
-        ccUtil.callCenter.rejectB(A, B, ringQueue)
+        ccUtil.callCenter.rejectB(A, B, ringQueue, queue)
 
     elif answer == "7":
-        ccUtil.callCenter.hangupA(A, B,ongoingCall, ringQueue)
+        ccUtil.callCenter.hangupA(A, B,ongoingCall, ringQueue, queue)
 
     elif answer == "8":
-        ccUtil.callCenter.hangupB(A, B,ongoingCall, ringQueue)
+        ccUtil.callCenter.hangupB(A, B,ongoingCall, ringQueue, queue)
 
     elif answer == "9":
         ccUtil.callCenter.freeQueue(queue)
-
