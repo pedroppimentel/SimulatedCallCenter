@@ -12,6 +12,11 @@ def isEmptyQueue(queue):
         return 1
     else: return 0
 
+def isNotEmptyQueue(queue):
+    if len(queue) == 0:
+        return 0
+    else: return 1
+
 # verify if list ringQueue is empty
 def isEmptyRingQueue(ringQueue):
     if len(ringQueue) == 0:
@@ -19,20 +24,39 @@ def isEmptyRingQueue(ringQueue):
     else: return 0    
 
 # check if status is available, if true and there is a call on queue, then status become ringing and a new call is asigned to operator
-def checkStatus(A, B, ringQueue):
+def checkStatus(A, B, ringQueue, queue):
     if A.status == "available":
         if not (isEmptyRingQueue(ringQueue)) and (ringQueue[0] != 0):
             print("Call", ringQueue[0], "is ringing for operator A")
             A.status = "ringing"
             input("\nPress Enter to continue...")
             return 1
+    
+    if A.status == "available":
+        if (len(queue) != 0) and (ringQueue[0] == 0):
+            ringQueue[0] = queue[0]
+            queue.pop(0)
+            print("Call", ringQueue[0], "is ringing for operator A")
+            A.status = "ringing"
+            input("\nPress Enter to continue...")
+            return 1
 
-    elif B.status == "available":
+    if B.status == "available":
         if not (isEmptyRingQueue(ringQueue)) and (ringQueue[1] != 0):
             print("Call", ringQueue[1], "is ringing for operator B")
             B.status = "ringing"
             input("\nPress Enter to continue...")
-            return 1              
+            return 1   
+           
+    if B.status == "available":
+        if (len(queue) != 0) and (ringQueue[1] == 0):
+            ringQueue[1] = queue[0]
+            queue.pop(0)
+            print("Call", ringQueue[1], "is ringing for operator B")
+            B.status = "ringing"
+            input("\nPress Enter to continue...")
+            return 1
+
     else:
         print(ringQueue)
         print("Empty queue")
@@ -125,49 +149,49 @@ class callCenter():
             input("\nPress Enter to continue...")           
 
     # function to reject a call on operator A
-    def rejectA(A, B, ringQueue):
+    def rejectA(A, B, ringQueue, queue):
         if not isEmptyRingQueue(ringQueue):
             print("Call", ringQueue[0], "rejected by operator A")
             input("\nPress Enter to continue...")
             A.status = "available"
             ringQueue[0] = 0
-            checkStatus(A, B, ringQueue)
+            checkStatus(A, B, ringQueue, queue)
         else:
             print("You don't have any call")
             input("\nPress Enter to continue...")
 
     # function to reject a call on operator B
-    def rejectB(A, B, ringQueue):
+    def rejectB(A, B, ringQueue, queue):
         if not isEmptyRingQueue(ringQueue):
             print("Call", ringQueue[0], "rejected by operator B")
             input("\nPress Enter to continue...")
             B.status = "available"
             ringQueue[0] = 0
-            checkStatus(A, B, ringQueue)
+            checkStatus(A, B, ringQueue, queue)
         else:
             print("You don't have any call")
             input("\nPress Enter to continue...")
 
     #function to hangup a call on operator A
-    def hangupA(A, B,ongoingCall, ringQueue):
+    def hangupA(A, B,ongoingCall, ringQueue, queue):
         if not (isEmptyOngoing(ongoingCall)) and (ongoingCall[0] != 0):
             print("Call", ongoingCall[0], "finished and operator A available")
             input("\nPress Enter to continue...")
             ongoingCall[0] = 0 
             A.status = "available"
-            checkStatus(A, B, ringQueue)
+            checkStatus(A, B, ringQueue, queue)
         else:
             print("You don't have any ongoing call")
             input("\nPress Enter to continue...")
 
     #function to hangup a call on operator B
-    def hangupB(A, B,ongoingCall, ringQueue):
+    def hangupB(A, B,ongoingCall, ringQueue, queue):
         if not (isEmptyOngoing(ongoingCall)) and (ongoingCall[1] != 0):
             print("Call", ongoingCall[1], "finished and operator B available")
             input("\nPress Enter to continue...")
             ongoingCall[1] = 0
             B.status = "available"
-            checkStatus(A, B, ringQueue)           
+            checkStatus(A, B, ringQueue, queue)           
         else:
             print("You don't have any ongoing call")
             input("\nPress Enter to continue...")
